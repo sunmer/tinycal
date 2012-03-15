@@ -9,12 +9,7 @@ var dp = (function() {
   var year = ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'okt', 'nov', 'dec'];
   
   function getCurrentMonthStr() {
-  	for(var i = 0; i < year.length; i++) {
-	  if(i === now.getMonth()) {
-	    return year[i];
-	    break;
-	  }
-	}
+  	return year[currMonth];
   }
   
   function createTable(year, month) {
@@ -52,7 +47,7 @@ var dp = (function() {
     nextMonthArrow.style.float = "right";
     
     tcell.appendChild(prevMonthArrow);
-    tcell.appendChild(d.createTextNode(getCurrentMonthStr() + " " + now.getFullYear()));
+    tcell.appendChild(d.createTextNode(getCurrentMonthStr() + " " + currYear));
     tcell.appendChild(nextMonthArrow);
     
     tcell.setAttribute("colspan", "7");
