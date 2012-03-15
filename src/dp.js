@@ -1,4 +1,4 @@
-var du = (function() {
+var dp = (function() {
   
   var now;
   var firstOfMonth;
