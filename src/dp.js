@@ -52,7 +52,7 @@ var dp = (function() {
     nextMonthArrow.style.float = "right";
     
     tcell.appendChild(prevMonthArrow);
-    tcell.appendChild(d.createTextNode(now.getFullYear() + " " + getCurrentMonthStr()));
+    tcell.appendChild(d.createTextNode(getCurrentMonthStr() + " " + now.getFullYear()));
     tcell.appendChild(nextMonthArrow);
     
     tcell.setAttribute("colspan", "7");
