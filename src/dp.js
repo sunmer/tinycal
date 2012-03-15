@@ -9,14 +9,14 @@ var dp = (function() {
   var year = ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'okt', 'nov', 'dec'];
   
   function getCurrentMonthStr() {
-  	return year[currMonth];
+  	return year[currMonth - 1];
   }
   
   function createTable(year, month) {
   	console.time('createTable');
   	currYear = year;
   	currMonth = month;
-  	now = new Date(year, month, 0);
+  	now = new Date(currYear, currMonth, 0);
   	firstOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
   	
     var body = d.getElementsByTagName("body")[0];
