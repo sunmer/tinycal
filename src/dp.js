@@ -3,7 +3,6 @@ var dp = (function() {
   var now;
   var firstOfMonth;
   var d = document;
-  var currYear, currMonth;
   
   var week = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
   var year = ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'okt', 'nov', 'dec'];
@@ -14,9 +13,7 @@ var dp = (function() {
   
   function createTable(year, month) {
   	console.time('createTable');
-  	currYear = year;
-  	currMonth = month;
-  	now = new Date(currYear, currMonth, 0);
+  	now = new Date(year, month, 0);
   	firstOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
   	
     var body = d.getElementsByTagName("body")[0];
@@ -27,9 +24,9 @@ var dp = (function() {
     
     var prevMonthArrow = d.createElement("a");
     prevMonthArrow.addEventListener('click',function () {
-    	currMonth--;
+    	month--;
     	d.body.removeChild(d.getElementById('cal'));
-		createTable(currYear, currMonth);
+		createTable(year, month);
 	}, false);
     prevMonthArrow.setAttribute("href", "#");
     prevMonthArrow.style.float = "left";
@@ -37,9 +34,9 @@ var dp = (function() {
     
     var nextMonthArrow = d.createElement("a");
     nextMonthArrow.addEventListener('click',function () {
-    	currMonth++;
+    	month++;
     	d.body.removeChild(d.getElementById('cal'));
-		createTable(currYear, currMonth);
+		createTable(year, month);
 	}, false);
 	
     nextMonthArrow.setAttribute("href", "#");
