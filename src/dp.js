@@ -3,13 +3,13 @@ var dp = (function() {
   var now;
   var firstOfMonth;
   var d = document;
-  var currYear, currMonth, daysInMonth;
+  var currYear, currMonth;
   
   var week = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
   var year = ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'okt', 'nov', 'dec'];
   
   function getCurrentMonthStr() {
-  	return year[currMonth - 1];
+  	return year[now.getMonth()];
   }
   
   function createTable(year, month) {
@@ -47,7 +47,7 @@ var dp = (function() {
     nextMonthArrow.style.float = "right";
     
     tcell.appendChild(prevMonthArrow);
-    tcell.appendChild(d.createTextNode(getCurrentMonthStr() + " " + currYear));
+    tcell.appendChild(d.createTextNode(getCurrentMonthStr() + " " + now.getFullYear()));
     tcell.appendChild(nextMonthArrow);
     
     tcell.setAttribute("colspan", "7");
@@ -67,7 +67,7 @@ var dp = (function() {
 	var row = d.createElement("tr");
 	var tdsInRow = 1;
 	var dayOffset = firstOfMonth.getDay();
-	daysInMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0).getDate();
+	var daysInMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0).getDate();
 
     for (var i = 1 - dayOffset; i <= daysInMonth; i++) {
         var cell = d.createElement("td");        
