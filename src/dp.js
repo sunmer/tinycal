@@ -7,10 +7,6 @@ var dp = (function() {
   var week = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
   var year = ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'okt', 'nov', 'dec'];
   
-  function getCurrentMonthStr() {
-  	return year[now.getMonth()];
-  }
-  
   function createTable(year, month) {
   	console.time('createTable');
   	now = new Date(year, month, 0);
@@ -44,7 +40,7 @@ var dp = (function() {
     nextMonthArrow.style.float = "right";
     
     tcell.appendChild(prevMonthArrow);
-    tcell.appendChild(d.createTextNode(getCurrentMonthStr() + " " + now.getFullYear()));
+    tcell.appendChild(d.createTextNode(year[now.getMonth()] + " " + now.getFullYear()));
     tcell.appendChild(nextMonthArrow);
     
     tcell.setAttribute("colspan", "7");
