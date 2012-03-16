@@ -7,34 +7,29 @@ var dp = (function() {
   var fullWeek = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
   var fullYear = ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'okt', 'nov', 'dec'];
   
+  function toggleDate(year, month) {
+    d.body.removeChild(d.getElementById('cal'));
+	createTable(year, month);
+  }
+  
   function createTable(year, month) {
   	console.time('createTable');
   	now = new Date(year, month, 0);
   	firstOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
   	
-    var body = d.getElementsByTagName("body")[0];
     var table = d.createElement("table");
     var thead = d.createElement("thead");
     var tr = d.createElement("tr");
     var tcell = d.createElement("th");
     
     var prevMonthArrow = d.createElement("a");
-    prevMonthArrow.addEventListener('click',function () {
-    	month--;
-    	d.body.removeChild(d.getElementById('cal'));
-		createTable(year, month);
-	}, false);
+    prevMonthArrow.addEventListener('click', function() { toggleDate(year, month - 1) }, false);
     prevMonthArrow.setAttribute("href", "#");
-    prevMonthArrow.style.float = "left";
     prevMonthArrow.appendChild(d.createTextNode("<"));
+    prevMonthArrow.style.float = "left";
     
     var nextMonthArrow = d.createElement("a");
-    nextMonthArrow.addEventListener('click',function () {
-    	month++;
-    	d.body.removeChild(d.getElementById('cal'));
-		createTable(year, month);
-	}, false);
-	
+    nextMonthArrow.addEventListener('click', function() { toggleDate(year, month + 1) }, false);
     nextMonthArrow.setAttribute("href", "#");
     nextMonthArrow.appendChild(d.createTextNode(">"));
     nextMonthArrow.style.float = "right";
@@ -78,7 +73,7 @@ var dp = (function() {
 	table.appendChild(thead);
     table.appendChild(tableBody);
     table.setAttribute('id', 'cal');
-    body.appendChild(table);
+    d.body.appendChild(table);
     
     console.timeEnd('createTable');
   }
