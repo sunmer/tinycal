@@ -45,8 +45,7 @@ var dp = (function() {
     tr = d.createElement("tr");
     for(var i = 0; i < fullWeek.length; i++) {
 	  tcell = d.createElement("th");
-	  var cellText = d.createTextNode(fullWeek[i]);
-	  tcell.appendChild(cellText);
+	  tcell.appendChild(d.createTextNode(fullWeek[i]));
 	  tr.appendChild(tcell);
 	}
 	thead.appendChild(tr);
@@ -57,11 +56,11 @@ var dp = (function() {
 	var dayOffset = firstOfMonth.getDay();
 	var daysInMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0).getDate();
 
-    for (var i = 1 - dayOffset; i <= daysInMonth; i++) {
-        var cell = d.createElement("td");        
-        var cellText = d.createTextNode(i);
-        cell.appendChild(cellText);
-        row.appendChild(cell);
+    for(var i = 1 - dayOffset; i <= daysInMonth; i++) {
+        tcell = d.createElement("td");        
+        var cellText = d.createTextNode(i > 0 ? i : "");
+        tcell.appendChild(cellText);
+        row.appendChild(tcell);
         if(tdsInRow % 7 === 0) {
         	tableBody.appendChild(row);
         	row = d.createElement("tr");
