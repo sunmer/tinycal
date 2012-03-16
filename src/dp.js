@@ -4,8 +4,8 @@ var dp = (function() {
   var firstOfMonth;
   var d = document;
   
-  var week = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
-  var year = ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'okt', 'nov', 'dec'];
+  var fullWeek = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
+  var fullYear = ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'okt', 'nov', 'dec'];
   
   function createTable(year, month) {
   	console.time('createTable');
@@ -40,7 +40,7 @@ var dp = (function() {
     nextMonthArrow.style.float = "right";
     
     tcell.appendChild(prevMonthArrow);
-    tcell.appendChild(d.createTextNode(year[now.getMonth()] + " " + now.getFullYear()));
+    tcell.appendChild(d.createTextNode(fullYear[now.getMonth()] + " " + now.getFullYear()));
     tcell.appendChild(nextMonthArrow);
     
     tcell.setAttribute("colspan", "7");
@@ -48,9 +48,9 @@ var dp = (function() {
 	tr.appendChild(tcell);
     thead.appendChild(tr);
     tr = d.createElement("tr");
-    for(var i = 0; i < week.length; i++) {
+    for(var i = 0; i < fullWeek.length; i++) {
 	  tcell = d.createElement("th");
-	  var cellText = d.createTextNode(week[i]);
+	  var cellText = d.createTextNode(fullWeek[i]);
 	  tcell.appendChild(cellText);
 	  tr.appendChild(tcell);
 	}
