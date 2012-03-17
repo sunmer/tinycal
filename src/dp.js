@@ -4,6 +4,8 @@ var dp = (function() {
 
   var fullWeek = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
   var fullYear = ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'okt', 'nov', 'dec'];
+  var defaultDate = new Date();
+  var defaults = { year: defaultDate.getFullYear(), month: defaultDate.getMonth() + 1, sunStart: false }
   
   function toggleDate(year, month) {
     d.body.removeChild(d.getElementById('cal'));
@@ -11,6 +13,7 @@ var dp = (function() {
   }
   
   function createTable(year, month, sunStart) {
+  	console.time("creating dp");
   	var now = new Date(year, month, 0);
   	var firstOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
   	
@@ -87,10 +90,24 @@ var dp = (function() {
     table.appendChild(tableBody);
     table.setAttribute('id', 'cal');
     d.body.appendChild(table);
+    console.timeEnd("creating dp");
+  }
+  
+  function init(opts) {
+  	if(typeof opts !== 'undefined') {
+  		for(var prop in defaults) {
+	  		if(typeof opts[prop] === 'undefined') {
+	  			opts[prop] = defaults[prop]	
+	  		}
+	  	}
+  	} else {
+  		opts = defaults;	
+  	}
+  	createTable(opts['year'], opts['month'], opts['sunStart']);
   }
 
   return {
-    createTable : createTable
+    init : init
   }
 
 })();
