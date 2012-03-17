@@ -5,11 +5,15 @@ var dp = (function() {
   var fullWeek = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
   var fullYear = ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'okt', 'nov', 'dec'];
   var defaultDate = new Date();
-  var defaults = { year: defaultDate.getFullYear(), month: defaultDate.getMonth() + 1, sunStart: false }
+  var defaults = { target: false, year: defaultDate.getFullYear(), month: defaultDate.getMonth() + 1, sunStart: false }
   
   function toggleDate(year, month) {
     d.body.removeChild(d.getElementById('cal'));
 	createTable(year, month);
+  }
+  
+  function writeDate(year, month, date) {
+  	console.log(new Date(year, month - 1, date).toString());
   }
   
   function createTable(year, month, sunStart) {
@@ -54,7 +58,7 @@ var dp = (function() {
 	}
 	thead.appendChild(tr);
 
-    var tableBody = d.createElement("tbody");
+    var tbody = d.createElement("tbody");
 	var row = d.createElement("tr");
 	var tdsInRow = 1;
 	var dayOffset = firstOfMonth.getDay();
@@ -70,7 +74,7 @@ var dp = (function() {
 		row.appendChild(tcell);
 		tdsInRow++;
 	}
-
+	
     for(var i = 1; i <= daysInMonth; i++) {
         tcell = d.createElement("td");    
         link = d.createElement("a");
@@ -79,17 +83,23 @@ var dp = (function() {
         tcell.appendChild(link);
         row.appendChild(tcell);
         if(tdsInRow % 7 === 0) {
-        	tableBody.appendChild(row);
+        	tbody.appendChild(row);
         	row = d.createElement("tr");
         }
+        (function() {
+        	var date = i;
+        	link.addEventListener('click', function t() { writeDate(year, month, date); }, false);	
+        })();
+        
         tdsInRow++;
     }
-
-    tableBody.appendChild(row);    
+    
+    tbody.appendChild(row);    
 	table.appendChild(thead);
-    table.appendChild(tableBody);
+    table.appendChild(tbody);
     table.setAttribute('id', 'cal');
     d.body.appendChild(table);
+    
     console.timeEnd("creating dp");
   }
   
