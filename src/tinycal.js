@@ -1,7 +1,6 @@
 var tinycal = (function() {
   
   var d = document;
-  
   var startDate = new Date();
   
   var options = {
