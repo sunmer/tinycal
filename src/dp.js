@@ -1,28 +1,33 @@
 var tinycal = (function() {
   
   var d = document;
-
-  var fullWeek = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
-  var fullYear = ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'okt', 'nov', 'dec'];
+  
   var startDate = new Date();
-  var defaultOpts = { target: null, year: startDate.getFullYear(), month: startDate.getMonth() + 1, sunStart: false, id: 'tinyCal' }
-  var target, id;
+  
+  var options = { 
+  	target: null, 
+  	id: 'tinycal',
+  	year: startDate.getFullYear(), 
+  	month: startDate.getMonth() + 1, 
+  	sunStart: false, 
+  	fullWeek: ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'],
+  	fullYear: ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'okt', 'nov', 'dec']
+  }
   
   function toggleDate(year, month) {
-    d.body.removeChild(d.getElementById(id));
+    d.body.removeChild(d.getElementById(options.id));
 	createTable(year, month);
   }
   
   function writeDate(year, month, date) {
-  	if(target !== null) {
-  		target.value = new Date(year, month - 1, date).toString();	
+  	if(options.target !== null) {
+  		options.target.value = new Date(year, month - 1, date).toString();	
   	}
   }
   
   function createTable(year, month, sunStart) {
-  	console.time("creating tiny calendar");
   	var now = new Date(year, month, 0);
-  	
+
   	var firstOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
   	
     var table = d.createElement("table");
@@ -31,16 +36,16 @@ var tinycal = (function() {
     var tcell = d.createElement("th");
     
     var link = d.createElement("a");
-    link.addEventListener('click', function() { toggleDate(year, month - 1) }, false);
+    link.addEventListener('click', function() { toggleDate(now.getFullYear(), now.getMonth()) }, false);
     link.setAttribute("href", "#");
     link.appendChild(d.createTextNode("<"));
     link.style['float'] = "left";
     tcell.appendChild(link);
     
-    tcell.appendChild(d.createTextNode(fullYear[now.getMonth()] + " " + now.getFullYear()));
+    tcell.appendChild(d.createTextNode(options.fullYear[now.getMonth()] + " " + now.getFullYear()));
     
     link = d.createElement("a");
-    link.addEventListener('click', function() { toggleDate(year, month + 1) }, false);
+    link.addEventListener('click', function() { toggleDate(now.getFullYear(), now.getMonth() + 2) }, false);
     link.setAttribute("href", "#");
     link.appendChild(d.createTextNode(">"));
     link.style['float'] = "right";
@@ -52,9 +57,9 @@ var tinycal = (function() {
     thead.appendChild(tr);
     tr = d.createElement("tr");
 	
-    for(i = 0; i < fullWeek.length; i++) {
+    for(i = 0; i < options.fullWeek.length; i++) {
 	  tcell = d.createElement("th");
-	  tcell.appendChild(d.createTextNode(fullWeek[i]));
+	  tcell.appendChild(d.createTextNode(options.fullWeek[i]));
 	  tr.appendChild(tcell);
 	}
 	thead.appendChild(tr);
@@ -76,6 +81,7 @@ var tinycal = (function() {
 		tdsInRow++;
 	}
 	
+	//Next months 0 date is the length of this month
 	var daysInMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0).getDate();
     for(var i = 1; i <= daysInMonth; i++) {
         tcell = d.createElement("td");    
@@ -83,7 +89,7 @@ var tinycal = (function() {
         link.setAttribute('href', '#');
         link.appendChild(d.createTextNode(i));
         
-        if(i == startDate.getDate()) {
+        if(now.getFullYear() === startDate.getFullYear() && now.getMonth() === startDate.getMonth() && i == startDate.getDate()) {
         	tcell.setAttribute('class', 'today');		
         }
         
@@ -106,7 +112,7 @@ var tinycal = (function() {
     tbody.appendChild(row);    
 	table.appendChild(thead);
     table.appendChild(tbody);
-    table.setAttribute('id', id);
+    table.setAttribute('id', options.id);
     d.body.appendChild(table);
     
     console.timeEnd("creating tiny calendar");
@@ -114,24 +120,19 @@ var tinycal = (function() {
   
   function init(opts) {
   	if(typeof opts !== 'undefined') {
-  		for(var prop in defaultOpts) {
-	  		if(typeof opts[prop] === 'undefined') {
-	  			opts[prop] = defaultOpts[prop]	
+  		for(var prop in options) {
+	  		if(typeof opts[prop] !== 'undefined') {
+	  			options[prop] = opts[prop];
 	  		}
 	  	}
-  	} else {
-  		opts = defaultOpts;	
   	}
   	
-  	if(!opts['sunStart']) {
-		fullWeek.push(fullWeek[0]);
-		fullWeek.shift();
+  	if(!options.sunStart) {
+		options.fullWeek.push(options.fullWeek[0]);
+		options.fullWeek.shift();
 	}
 	
-	target = opts['target'];
-	id = opts['id']
-	
-  	createTable(opts['year'], opts['month'], opts['sunStart']);
+  	createTable(options.year, options.month, options.sunStart);
   }
 
   return {
