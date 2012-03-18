@@ -10,7 +10,7 @@ tinycal.init() - Will render a default unstyled date picker
 
 ## default options:
     var options = {
-  	calendarID: the id attribute for the date picker table which is generated,
+  	**calendarID:** the id attribute for the date picker table which is generated,
   	year: the initial year which is rendered. Default: current year, 
   	month: the initial month which is rendered. Default: current month, 
   	sunStart: start the week on sunday (true) or monday (false). Default: false, 
