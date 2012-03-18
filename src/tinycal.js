@@ -8,7 +8,7 @@ var tinycal = (function() {
   	calendarID: 'tinycal',
   	year: startDate.getFullYear(), 
   	month: startDate.getMonth(), 
-  	sunStart: false, 
+  	sunStart: true, 
   	fullWeek: ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'],
   	fullYear: ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'okt', 'nov', 'dec'],
   	callback: null
