@@ -8,7 +8,7 @@ var tinycal = (function() {
   	target: null, 
   	id: 'tinycal',
   	year: startDate.getFullYear(), 
-  	month: startDate.getMonth() + 1, 
+  	month: startDate.getMonth(), 
   	sunStart: false, 
   	fullWeek: ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'],
   	fullYear: ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'okt', 'nov', 'dec']
@@ -21,12 +21,12 @@ var tinycal = (function() {
   
   function writeDate(year, month, date) {
   	if(options.target !== null) {
-  		options.target.value = new Date(year, month - 1, date).toString();	
+  		options.target.value = new Date(year, month - 1, date);	
   	}
   }
   
   function createTable(year, month, sunStart) {
-  	var now = new Date(year, month, 0);
+  	var now = new Date(year, month, 1);
 
   	var firstOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
   	
@@ -36,7 +36,7 @@ var tinycal = (function() {
     var tcell = d.createElement("th");
     
     var link = d.createElement("a");
-    link.addEventListener('click', function() { toggleDate(now.getFullYear(), now.getMonth()) }, false);
+    link.addEventListener('click', function() { toggleDate(now.getFullYear(), now.getMonth() - 1) }, false);
     link.setAttribute("href", "#");
     link.appendChild(d.createTextNode("<"));
     link.style['float'] = "left";
@@ -45,7 +45,7 @@ var tinycal = (function() {
     tcell.appendChild(d.createTextNode(options.fullYear[now.getMonth()] + " " + now.getFullYear()));
     
     link = d.createElement("a");
-    link.addEventListener('click', function() { toggleDate(now.getFullYear(), now.getMonth() + 2) }, false);
+    link.addEventListener('click', function() { toggleDate(now.getFullYear(), now.getMonth() + 1) }, false);
     link.setAttribute("href", "#");
     link.appendChild(d.createTextNode(">"));
     link.style['float'] = "right";
@@ -81,6 +81,8 @@ var tinycal = (function() {
 		tdsInRow++;
 	}
 	
+	var isThisMonthAndYear = now.getFullYear() === startDate.getFullYear() && now.getMonth() === startDate.getMonth();
+	
 	//Next months 0 date is the length of this month
 	var daysInMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0).getDate();
     for(var i = 1; i <= daysInMonth; i++) {
@@ -89,7 +91,7 @@ var tinycal = (function() {
         link.setAttribute('href', '#');
         link.appendChild(d.createTextNode(i));
         
-        if(now.getFullYear() === startDate.getFullYear() && now.getMonth() === startDate.getMonth() && i == startDate.getDate()) {
+        if(isThisMonthAndYear && i == startDate.getDate()) {
         	tcell.setAttribute('class', 'today');		
         }
         
@@ -114,12 +116,16 @@ var tinycal = (function() {
     table.appendChild(tbody);
     table.setAttribute('id', options.id);
     d.body.appendChild(table);
-    
-    console.timeEnd("creating tiny calendar");
   }
   
   function init(opts) {
   	if(typeof opts !== 'undefined') {
+  		
+  		//JS months start with 0, human logic doesn't
+  		if(typeof opts.month === 'number') {
+  			opts.month = opts.month - 1;	
+  		}
+  		
   		for(var prop in options) {
 	  		if(typeof opts[prop] !== 'undefined') {
 	  			options[prop] = opts[prop];
