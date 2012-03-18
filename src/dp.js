@@ -2,10 +2,11 @@ var dp = (function() {
   
   var d = document;
 
-  var fullWeek = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
+  var fullWeek = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
   var fullYear = ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'okt', 'nov', 'dec'];
   var defaultDate = new Date();
-  var defaults = { target: false, year: defaultDate.getFullYear(), month: defaultDate.getMonth() + 1, sunStart: false }
+  var defaultOpts = { target: false, year: defaultDate.getFullYear(), month: defaultDate.getMonth() + 1, sunStart: false }
+  var elTarget = false;
   
   function toggleDate(year, month) {
     d.body.removeChild(d.getElementById('cal'));
@@ -13,7 +14,9 @@ var dp = (function() {
   }
   
   function writeDate(year, month, date) {
-  	console.log(new Date(year, month - 1, date).toString());
+  	if(elTarget !== null) {
+  		elTarget.value = new Date(year, month - 1, date).toString();	
+  	}
   }
   
   function createTable(year, month, sunStart) {
@@ -48,10 +51,7 @@ var dp = (function() {
     thead.appendChild(tr);
     tr = d.createElement("tr");
 	
-	var weekStart = sunStart ? 0 : 1;
-	var weekEnd = sunStart ? fullWeek.length - 1 : fullWeek.length;
-	
-    for(i = weekStart; i < weekEnd; i++) {
+    for(i = 0; i < fullWeek.length; i++) {
 	  tcell = d.createElement("th");
 	  tcell.appendChild(d.createTextNode(fullWeek[i]));
 	  tr.appendChild(tcell);
@@ -63,18 +63,19 @@ var dp = (function() {
 	var tdsInRow = 1;
 	var dayOffset = firstOfMonth.getDay();
 	
-	var daysInMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0).getDate();
-		
+	//Sunday is the seventh day of the week if !sunStart
 	if(!sunStart && dayOffset === 0) {
 		dayOffset = 7;	
 	}
 	
+	var weekStart = sunStart ? 0 : 1;
 	for(var i = weekStart; i < dayOffset; i++) {
 		tcell = d.createElement("td");
 		row.appendChild(tcell);
 		tdsInRow++;
 	}
 	
+	var daysInMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0).getDate();
     for(var i = 1; i <= daysInMonth; i++) {
         tcell = d.createElement("td");    
         link = d.createElement("a");
@@ -105,14 +106,21 @@ var dp = (function() {
   
   function init(opts) {
   	if(typeof opts !== 'undefined') {
-  		for(var prop in defaults) {
+  		for(var prop in defaultOpts) {
 	  		if(typeof opts[prop] === 'undefined') {
-	  			opts[prop] = defaults[prop]	
+	  			opts[prop] = defaultOpts[prop]	
 	  		}
 	  	}
   	} else {
-  		opts = defaults;	
+  		opts = defaultOpts;	
   	}
+  	if(!opts['sunStart']) {
+		fullWeek.push(fullWeek[0]);
+		fullWeek.shift();
+	}
+	
+	elTarget = opts['target'];
+	
   	createTable(opts['year'], opts['month'], opts['sunStart']);
   }
 
