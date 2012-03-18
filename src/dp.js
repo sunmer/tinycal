@@ -4,27 +4,21 @@ var tinycal = (function() {
   
   var startDate = new Date();
   
-  var options = { 
-  	target: null, 
-  	id: 'tinycal',
+  var options = {
+  	calendarID: 'tinycal',
   	year: startDate.getFullYear(), 
   	month: startDate.getMonth(), 
   	sunStart: false, 
   	fullWeek: ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'],
-  	fullYear: ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'okt', 'nov', 'dec']
+  	fullYear: ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'okt', 'nov', 'dec'],
+  	callback: null
   }
   
   function toggleDate(year, month) {
-    d.body.removeChild(d.getElementById(options.id));
+    d.body.removeChild(d.getElementById(options.calendarID));
 	createTable(year, month);
   }
-  
-  function writeDate(year, month, date) {
-  	if(options.target !== null) {
-  		options.target.value = new Date(year, month - 1, date);	
-  	}
-  }
-  
+    
   function createTable(year, month, sunStart) {
   	var now = new Date(year, month, 1);
 
@@ -103,10 +97,12 @@ var tinycal = (function() {
         	row = d.createElement("tr");
         }
         
-        (function() {
-        	var date = i;
-        	link.addEventListener('click', function t() { writeDate(year, month, date); }, false);	
-        })();
+        if(options.callback !== null) {
+        	(function() {
+	        	var date = i;
+	        	link.addEventListener('click', function t() { options.callback(new Date(year, month, date)); }, false);	
+	        })();	
+        }
         
         tdsInRow++;
     }
@@ -114,7 +110,8 @@ var tinycal = (function() {
     tbody.appendChild(row);    
 	table.appendChild(thead);
     table.appendChild(tbody);
-    table.setAttribute('id', options.id);
+    table.setAttribute('id', options.calendarID);
+    table.className = 'tinycal';
     d.body.appendChild(table);
   }
   
