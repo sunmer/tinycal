@@ -1,27 +1,28 @@
-var dp = (function() {
+var tinycal = (function() {
   
   var d = document;
 
   var fullWeek = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
   var fullYear = ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'okt', 'nov', 'dec'];
-  var defaultDate = new Date();
-  var defaultOpts = { target: false, year: defaultDate.getFullYear(), month: defaultDate.getMonth() + 1, sunStart: false }
-  var elTarget = false;
+  var startDate = new Date();
+  var defaultOpts = { target: null, year: startDate.getFullYear(), month: startDate.getMonth() + 1, sunStart: false, id: 'tinyCal' }
+  var target, id;
   
   function toggleDate(year, month) {
-    d.body.removeChild(d.getElementById('cal'));
+    d.body.removeChild(d.getElementById(id));
 	createTable(year, month);
   }
   
   function writeDate(year, month, date) {
-  	if(elTarget !== null) {
-  		elTarget.value = new Date(year, month - 1, date).toString();	
+  	if(target !== null) {
+  		target.value = new Date(year, month - 1, date).toString();	
   	}
   }
   
   function createTable(year, month, sunStart) {
-  	console.time("creating dp");
+  	console.time("creating tiny calendar");
   	var now = new Date(year, month, 0);
+  	
   	var firstOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
   	
     var table = d.createElement("table");
@@ -81,12 +82,19 @@ var dp = (function() {
         link = d.createElement("a");
         link.setAttribute('href', '#');
         link.appendChild(d.createTextNode(i));
+        
+        if(i == startDate.getDate()) {
+        	tcell.setAttribute('class', 'today');		
+        }
+        
         tcell.appendChild(link);
         row.appendChild(tcell);
+        
         if(tdsInRow % 7 === 0) {
         	tbody.appendChild(row);
         	row = d.createElement("tr");
         }
+        
         (function() {
         	var date = i;
         	link.addEventListener('click', function t() { writeDate(year, month, date); }, false);	
@@ -98,10 +106,10 @@ var dp = (function() {
     tbody.appendChild(row);    
 	table.appendChild(thead);
     table.appendChild(tbody);
-    table.setAttribute('id', 'cal');
+    table.setAttribute('id', id);
     d.body.appendChild(table);
     
-    console.timeEnd("creating dp");
+    console.timeEnd("creating tiny calendar");
   }
   
   function init(opts) {
@@ -114,12 +122,14 @@ var dp = (function() {
   	} else {
   		opts = defaultOpts;	
   	}
+  	
   	if(!opts['sunStart']) {
 		fullWeek.push(fullWeek[0]);
 		fullWeek.shift();
 	}
 	
-	elTarget = opts['target'];
+	target = opts['target'];
+	id = opts['id']
 	
   	createTable(opts['year'], opts['month'], opts['sunStart']);
   }
