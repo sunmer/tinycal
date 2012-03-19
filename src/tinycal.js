@@ -4,21 +4,24 @@ var tinycal = (function() {
   var startDate = new Date();
   
   var options = {
+  	container: d.body,
   	calendarID: 'tinycal',
   	year: startDate.getFullYear(), 
   	month: startDate.getMonth(), 
-  	sunStart: true, 
+  	sunStart: true,
   	fullWeek: ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'],
   	fullYear: ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'okt', 'nov', 'dec'],
-  	callback: null
+  	callback: false
   }
   
-  function toggleDate(year, month) {
-    d.body.removeChild(d.getElementById(options.calendarID));
-	createTable(year, month);
+  function toggleDate(year, month, currentOptions) {
+  	console.log("current calendar id is " + currentOptions.calendarID);
+  	console.log("current container id is " + currentOptions.container.id);
+    currentOptions.container.removeChild(d.getElementById(currentOptions.calendarID));
+	createTable(year, month, currentOptions);
   }
-    
-  function createTable(year, month, sunStart) {
+  
+  function createTable(year, month, currentOptions) {
   	var now = new Date(year, month, 1);
 
   	var firstOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
@@ -29,7 +32,11 @@ var tinycal = (function() {
     var tcell = d.createElement("th");
     
     var link = d.createElement("a");
-    link.addEventListener('click', function() { toggleDate(now.getFullYear(), now.getMonth() - 1) }, false);
+    
+    (function() {
+	    link.addEventListener('click', function() { toggleDate(now.getFullYear(), now.getMonth() - 1, currentOptions) }, false);
+	})();
+    
     link.setAttribute("href", "#");
     link.appendChild(d.createTextNode("<"));
     link.style['float'] = "left";
@@ -38,7 +45,11 @@ var tinycal = (function() {
     tcell.appendChild(d.createTextNode(options.fullYear[now.getMonth()] + " " + now.getFullYear()));
     
     link = d.createElement("a");
-    link.addEventListener('click', function() { toggleDate(now.getFullYear(), now.getMonth() + 1) }, false);
+    
+    (function() {
+	    link.addEventListener('click', function() { toggleDate(now.getFullYear(), now.getMonth() + 1, currentOptions) }, false);
+	})();
+    
     link.setAttribute("href", "#");
     link.appendChild(d.createTextNode(">"));
     link.style['float'] = "right";
@@ -50,9 +61,9 @@ var tinycal = (function() {
     thead.appendChild(tr);
     tr = d.createElement("tr");
 	
-    for(i = 0; i < options.fullWeek.length; i++) {
+    for(i = 0; i < currentOptions.fullWeek.length; i++) {
 	  tcell = d.createElement("th");
-	  tcell.appendChild(d.createTextNode(options.fullWeek[i]));
+	  tcell.appendChild(d.createTextNode(currentOptions.fullWeek[i]));
 	  tr.appendChild(tcell);
 	}
 	thead.appendChild(tr);
@@ -63,11 +74,11 @@ var tinycal = (function() {
 	var dayOffset = firstOfMonth.getDay();
 	
 	//Sunday is the seventh day of the week if !sunStart
-	if(!sunStart && dayOffset === 0) {
+	if(!currentOptions.sunStart && dayOffset === 0) {
 		dayOffset = 7;	
 	}
 	
-	var weekStart = sunStart ? 0 : 1;
+	var weekStart = currentOptions.sunStart ? 0 : 1;
 	for(var i = weekStart; i < dayOffset; i++) {
 		tcell = d.createElement("td");
 		row.appendChild(tcell);
@@ -96,10 +107,10 @@ var tinycal = (function() {
         	row = d.createElement("tr");
         }
         
-        if(options.callback !== null) {
+        if(currentOptions.callback) {
         	(function() {
 	        	var date = i;
-	        	link.addEventListener('click', function t() { options.callback(new Date(year, month, date)); }, false);	
+	        	link.addEventListener('click', function t() { currentOptions.callback(new Date(year, month, date)); }, false);	
 	        })();	
         }
         
@@ -109,9 +120,9 @@ var tinycal = (function() {
     tbody.appendChild(row);    
 	table.appendChild(thead);
     table.appendChild(tbody);
-    table.setAttribute('id', options.calendarID);
+    table.setAttribute('id', currentOptions.calendarID);
     table.className = 'tinycal';
-    d.body.appendChild(table);
+    currentOptions.container.appendChild(table);
   }
   
   function init(opts) {
@@ -122,7 +133,7 @@ var tinycal = (function() {
   			opts.month = opts.month - 1;	
   		}
   		
-  		for(var prop in options) {
+  		for(var prop in opts) {
 	  		if(typeof opts[prop] !== 'undefined') {
 	  			options[prop] = opts[prop];
 	  		}
@@ -133,8 +144,10 @@ var tinycal = (function() {
 		options.fullWeek.push(options.fullWeek[0]);
 		options.fullWeek.shift();
 	}
-	
-  	createTable(options.year, options.month, options.sunStart);
+
+	(function() {
+		return createTable(options.year, options.month, opts);  		
+	})();
   }
 
   return {
