@@ -5,7 +5,7 @@ highly flexible. Weighing in at around 4kb and requiring no
 external dependencies it's a good choice for developers looking
 to implement date handling in their web applications.
 
-## usage:
+## usage
 tinycal.init() - Will render a default unstyled date picker
 
 ## default options:
@@ -19,7 +19,7 @@ tinycal.init() - Will render a default unstyled date picker
   	callback: callback method when a date has been clicked. Default: null
     }
 
-## Example options:
+## Example options
     tinycal.init({
   	calendarID: 'tinycal',
   	year: 2012, 
