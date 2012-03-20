@@ -140,9 +140,9 @@ var tinycal = (function() {
   		opts = options;
   	}
   	
-  	if(!options.sunStart) {
-		options.fullWeek.push(options.fullWeek[0]);
-		options.fullWeek.shift();
+  	if(!opts.sunStart) {
+		opts.fullWeek.push(opts.fullWeek[0]);
+		opts.fullWeek.shift();
 	}
 	
 	createTable(opts.year, opts.month, opts);
