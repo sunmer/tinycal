@@ -1,9 +1,7 @@
 # tinycal.js - a lightweight JavaScript datepicker
 
-tinycal.js is a date picker which is easy to use yet
-highly flexible. Weighing in at around 4kb and requiring no
-external dependencies it's a good choice for developers looking
-to use date handling in their web applications.
+tinycal.js is a date picker which is easy to use yet highly flexible. Weighing in at 3.8 kilobytes 
+and requiring no external dependencies it's a good choice for developers looking to use date handling in their web applications.
 
 ## Basic usage
 tinycal.init( { container: document.body } ) - Will render a default unstyled date picker. The 
