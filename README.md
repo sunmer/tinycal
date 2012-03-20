@@ -5,7 +5,7 @@ highly flexible. Weighing in at around 4kb and requiring no
 external dependencies it's a good choice for developers looking
 to use date handling in their web applications.
 
-## basic usage
+## Basic usage
 tinycal.init( { container: document.body } ) - Will render a default unstyled date picker. The 
 container option is the only required option, the others can be left out.
 
