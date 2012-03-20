@@ -98,6 +98,7 @@ var tinycal = (function() {
         }
         
         tcell.appendChild(link);
+        tcell.className = 'day';
         row.appendChild(tcell);
         
         if(tdsInRow % 7 === 0) {
