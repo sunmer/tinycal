@@ -116,6 +116,17 @@ var tinycal = (function() {
         tdsInRow++;
     }
     
+    for(var i = tdsInRow; i < 43; i++) {
+    	tcell = d.createElement("td");
+    	tcell.innerHTML = "&nbsp;";
+    	row.appendChild(tcell);
+    	
+    	if(i % 7 === 0) {
+        	tbody.appendChild(row);
+        	row = d.createElement("tr");
+        }
+    }
+    
     tbody.appendChild(row);    
 	table.appendChild(thead);
     table.appendChild(tbody);
