@@ -9,10 +9,10 @@ to use date handling in their web applications.
 tinycal.init( { container: document.body } ) - Will render a default unstyled date picker. The 
 container option is the only required option, the others can be left out.
 
-## default options and their meanings
+## Default options
     var options = {
   	  calendarID: the id attribute for the date picker table which is generated. Default: 'tinycal',
-  	  callback: callback method when a date has been clicked. __Default: null__,
+  	  callback: callback method when a date has been clicked. Default: null,
   	  container: DOM object which tinycalendar is appended to. Example: document.body, 
   	  month: the initial month which is rendered. Default: current month, 
   	  year: the initial year which is rendered. Default: current year,
