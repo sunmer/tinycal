@@ -11,7 +11,7 @@ var tinycal = (function() {
   	year: startDate.getFullYear(),
   	fullWeek: ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'],
   	fullYear: ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'okt', 'nov', 'dec'],
-  	sunStart: true
+  	sunStart: false
   }
   
   function toggleDate(year, month, currentOptions) {
