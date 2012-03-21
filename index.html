@@ -4,7 +4,7 @@
   <meta charset='utf-8'>
 
   <title>sunmer/tinycal @ GitHub</title>
-
+  <link rel="stylesheet" href="http://cloud.github.com/downloads/sunmer/tinycal/air.css" type="text/css">
   <style type="text/css">
     body {
       margin-top: 1.0em;
@@ -27,6 +27,48 @@
     pre { background: #000; color: #fff; padding: 15px;}
     hr { border: 0; width: 80%; border-bottom: 1px solid #aaa}
     .footer { text-align:center; padding-top:30px; font-style: italic; }
+    
+    /* AIR THEME */
+    .tinycal {
+		font-family: 'Helvetica Neue', 'Helvetica', Arial, sans-serif;
+		font-weight: lighter;
+	}
+	.tinycal a {
+		text-decoration: none;
+		color: #333;
+		cursor: pointer;
+	}
+	.tinycal th {
+		padding: 4px 6px;
+		font-weight: lighter;
+	}
+	.tinycal a.prev {
+		float: left;	
+	}
+	.tinycal a.next {
+		float: right;
+	}
+	.tinycal tr:first-child th {
+		font-size: 20px;
+	}
+	.tinycal tr + tr th {
+		background-color: #313131;
+		color: #fff;
+		border: 1px solid #fff;
+		text-shadow: #000 0px 1px 1px;
+		font-weight: normal;
+	}
+	.tinycal td {
+		padding: 4px 0;
+		text-align: center;
+		border: 1px solid #fff;
+	}
+	.tinycal td.day {
+		background-color: #8fc1ff;
+	}
+	.tinycal td.day > a {
+		text-shadow: #eee 0px 1px 2px;
+	}
   </style>
 </head>
 
@@ -50,12 +92,20 @@
       <p>tinycal.js is a date picker which is easy to use yet
 highly flexible. Weighing in under 4kb and requiring no
 external dependencies it's a good choice for developers looking
-to use date handling in their web applications.</p>
-      <h2>Basic setup</h2>
-      <p>tinycal.init( { container: document.body } );</p>
-      <h2>Demo</h2>
+to use date handling in their web applications. Browser support implemented for Chrome, FireFox, Safari, Internet Explorer 7 and higher.</p>
+      <h2>Minimal setup</h2>
+      <p>All you need is to use the tinycal.js library and call it with tinycal.init( { container: document.body } );</p>
+      <h2>Demo (with air theme)</h2>
       <div id="calendar"></div>
+      <p>The demo uses air.css - one of many themes for the date picker and is initialized with:</p>
+<pre style="line-height: 1.5; font-size: 16px; background-color: #fff; color: #000; padding: 0;">
+tinycal.init({ 
+  <strong>container:</strong> document.getElementById('calendar'), 
+  <strong>callback:</strong> function(date) { alert(date); }
+});
+</pre>
     <h2>Options</h2>
+    <p>By using the options you can rename weeks (fullWeek) and months (fullMonth), use multiple date pickers on a single page by using unique id's for each calendar (calendarID), and also format the output date the way you want via the callback option which returns the picked date.</p>
     <pre style="line-height: 1.5; font-size: 16px; background-color: #fff; color: #000; padding: 0; overflow-x: scroll;">var options = {
   <strong>calendarID:</strong> the id attribute for the date picker table which is generated. Default: 'tinycal',
   <strong>callback:</strong> callback method when a date has been clicked. Default: null,
@@ -88,6 +138,9 @@ tinycal.init(options);
 </body>
 <script src="http://cloud.github.com/downloads/sunmer/tinycal/tinycal.min.js" type="text/javascript"></script>
 <script type="text/javascript">
-tinycal.init( { container: document.getElementById('calendar') } );
+tinycal.init({ 
+	container: document.getElementById('calendar'), 
+	callback: function(date) { alert(date); }
+});
 </script>
 </html>
