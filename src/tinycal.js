@@ -41,7 +41,9 @@ var tinycal = (function() {
     link.className = "prev";
     tcell.appendChild(link);
     
-    tcell.appendChild(d.createTextNode(options.fullYear[now.getMonth()] + " " + now.getFullYear()));
+    var heading = d.createElement("span");
+    heading.appendChild(d.createTextNode(options.fullYear[now.getMonth()] + " " + now.getFullYear()));
+    tcell.appendChild(heading);
     
     link = d.createElement("a");
     
@@ -55,7 +57,7 @@ var tinycal = (function() {
     link.className = "next";
     tcell.appendChild(link);
     
-    tcell.setAttribute("colspan", "7");
+    tcell.setAttribute("colSpan", "7");
 	tr.appendChild(tcell);
     thead.appendChild(tr);
     tr = d.createElement("tr");
