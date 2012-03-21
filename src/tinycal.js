@@ -31,30 +31,33 @@ var tinycal = (function() {
     
     var link = d.createElement("a");
     
-    (function() {
-	    link.addEventListener('click', function() { toggleDate(now.getFullYear(), now.getMonth() - 1, currentOptions) }, false);
-	})();
+   	if(!link.addEventListener) {
+   		link.attachEvent('onclick', function() { toggleDate(now.getFullYear(), now.getMonth() - 1, currentOptions) });	
+   	} else {
+   		link.addEventListener('click', function() { toggleDate(now.getFullYear(), now.getMonth() - 1, currentOptions) }, false);	
+   	}
     
     link.setAttribute("href", "#");
     link.appendChild(d.createTextNode("<"));
-    link.style['float'] = "left";
+    link.className = "prev";
     tcell.appendChild(link);
     
     tcell.appendChild(d.createTextNode(options.fullYear[now.getMonth()] + " " + now.getFullYear()));
     
     link = d.createElement("a");
     
-    (function() {
-	    link.addEventListener('click', function() { toggleDate(now.getFullYear(), now.getMonth() + 1, currentOptions) }, false);
-	})();
-    
+   	if(!link.addEventListener) {
+   		link.attachEvent('onclick', function() { toggleDate(now.getFullYear(), now.getMonth() + 1, currentOptions) });	
+   	} else {
+   		link.addEventListener('click', function() { toggleDate(now.getFullYear(), now.getMonth() + 1, currentOptions) }, false);
+   	}
+	
     link.setAttribute("href", "#");
     link.appendChild(d.createTextNode(">"));
-    link.style['float'] = "right";
+    link.className = "next";
     tcell.appendChild(link);
     
     tcell.setAttribute("colspan", "7");
-    tcell.setAttribute("align", "center");
 	tr.appendChild(tcell);
     thead.appendChild(tr);
     tr = d.createElement("tr");
@@ -109,8 +112,12 @@ var tinycal = (function() {
         if(currentOptions.callback) {
         	(function() {
 	        	var date = i;
-	        	link.addEventListener('click', function t() { currentOptions.callback(new Date(year, month, date)); }, false);	
-	        })();	
+	        	if(!link.addEventListener) {
+		    		link.attachEvent('onclick', function t() { currentOptions.callback(new Date(year, month, date)); });	
+		    	} else {
+		    		link.addEventListener('click', function t() { currentOptions.callback(new Date(year, month, date)); }, false);	
+		    	}
+        	})();
         }
         
         tdsInRow++;
