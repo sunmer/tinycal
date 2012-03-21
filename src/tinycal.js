@@ -37,7 +37,6 @@ var tinycal = (function() {
    		link.addEventListener('click', function() { toggleDate(now.getFullYear(), now.getMonth() - 1, currentOptions) }, false);	
    	}
     
-    link.setAttribute("href", "#");
     link.appendChild(d.createTextNode("<"));
     link.className = "prev";
     tcell.appendChild(link);
@@ -52,7 +51,6 @@ var tinycal = (function() {
    		link.addEventListener('click', function() { toggleDate(now.getFullYear(), now.getMonth() + 1, currentOptions) }, false);
    	}
 	
-    link.setAttribute("href", "#");
     link.appendChild(d.createTextNode(">"));
     link.className = "next";
     tcell.appendChild(link);
@@ -93,7 +91,6 @@ var tinycal = (function() {
     for(var i = 1; i <= daysInMonth; i++) {
         tcell = d.createElement("td");    
         link = d.createElement("a");
-        link.setAttribute('href', '#');
         link.appendChild(d.createTextNode(i));
         
         if(isThisMonthAndYear && i == startDate.getDate()) {
