@@ -61,9 +61,9 @@ var tinycal = (function() {
 	tr.appendChild(tcell);
     thead.appendChild(tr);
     tr = d.createElement("tr");
-	
+    
     for(i = 0; i < currentOptions.fullWeek.length; i++) {
-	  tcell = d.createElement("th");
+      tcell = d.createElement("th");
 	  tcell.appendChild(d.createTextNode(currentOptions.fullWeek[i]));
 	  tr.appendChild(tcell);
 	}
@@ -76,7 +76,7 @@ var tinycal = (function() {
 	
 	//Sunday is the seventh day of the week if !sunStart
 	if(!currentOptions.sunStart && dayOffset === 0) {
-		dayOffset = 7;	
+		dayOffset = 7;
 	}
 	
 	var weekStart = currentOptions.sunStart ? 0 : 1;
@@ -92,16 +92,15 @@ var tinycal = (function() {
 	var daysInMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0).getDate();
     for(var i = 1; i <= daysInMonth; i++) {
         tcell = d.createElement("td");    
-        
-        if(isThisMonthAndYear && i == startDate.getDate()) {
-        	tcell.className = 'today';
-        } else {
-        	tcell.className = 'day';	
-        }
-        
         link = d.createElement("a");
         link.appendChild(d.createTextNode(i));
+        
+        if(isThisMonthAndYear && i == startDate.getDate()) {
+        	tcell.setAttribute('class', 'today');		
+        }
+        
         tcell.appendChild(link);
+        tcell.className = 'day';
         row.appendChild(tcell);
         
         if(tdsInRow % 7 === 0) {
@@ -159,9 +158,10 @@ var tinycal = (function() {
   		opts = options;
   	}
   	
-  	if(!opts.sunStart) {
+  	if(!opts.sunStart && !tinycal.isWeekStartModified) {
 		opts.fullWeek.push(opts.fullWeek[0]);
 		opts.fullWeek.shift();
+		tinycal.isWeekStartModified = true;
 	}
 	
 	createTable(opts.year, opts.month, opts);
