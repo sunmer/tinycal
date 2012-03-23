@@ -92,15 +92,16 @@ var tinycal = (function() {
 	var daysInMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0).getDate();
     for(var i = 1; i <= daysInMonth; i++) {
         tcell = d.createElement("td");    
-        link = d.createElement("a");
-        link.appendChild(d.createTextNode(i));
         
         if(isThisMonthAndYear && i == startDate.getDate()) {
-        	tcell.setAttribute('class', 'today');		
+        	tcell.className = 'today';
+        } else {
+        	tcell.className = 'day';	
         }
         
+        link = d.createElement("a");
+        link.appendChild(d.createTextNode(i));
         tcell.appendChild(link);
-        tcell.className = 'day';
         row.appendChild(tcell);
         
         if(tdsInRow % 7 === 0) {
