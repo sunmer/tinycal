@@ -71,7 +71,7 @@ var tinycal = (function() {
 
     var tbody = d.createElement("tbody");
 	var row = d.createElement("tr");
-	var tdsInRow = 1;
+	var tcellsInRow = 1;
 	var dayOffset = firstOfMonth.getDay();
 	
 	//Sunday is the seventh day of the week if !sunStart
@@ -83,29 +83,35 @@ var tinycal = (function() {
 	for(var i = weekStart; i < dayOffset; i++) {
 		tcell = d.createElement("td");
 		row.appendChild(tcell);
-		tdsInRow++;
+		tcellsInRow++;
 	}
-	
+
 	var isThisMonthAndYear = now.getFullYear() === startDate.getFullYear() && now.getMonth() === startDate.getMonth();
 	
 	//Next months 0 date is the length of this month
 	var daysInMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0).getDate();
     for(var i = 1; i <= daysInMonth; i++) {
         tcell = d.createElement("td");    
+        if(isThisMonthAndYear && i == startDate.getDate()) {
+        	tcell.className = 'today';		
+        } else {
+        	tcell.className = 'day';	
+        }
+        	
         link = d.createElement("a");
         link.appendChild(d.createTextNode(i));
-        
-        if(isThisMonthAndYear && i == startDate.getDate()) {
-        	tcell.setAttribute('class', 'today');		
-        }
-        
         tcell.appendChild(link);
-        tcell.className = 'day';
         row.appendChild(tcell);
         
-        if(tdsInRow % 7 === 0) {
+        if(tcellsInRow % 6 == 0) {
+        	tcell.className += " weekend sat";
+        }
+        
+        if(tcellsInRow % 7 === 0) {
+        	tcell.className += " weekend sun";
         	tbody.appendChild(row);
         	row = d.createElement("tr");
+        	tcellsInRow = 0;
         }
         
         if(currentOptions.callback) {
@@ -119,18 +125,19 @@ var tinycal = (function() {
         	})();
         }
         
-        tdsInRow++;
+        tcellsInRow++;
     }
     
-    for(var i = tdsInRow; i < 43; i++) {
+    for(var i = daysInMonth; i <  43; i++) {
     	tcell = d.createElement("td");
     	tcell.innerHTML = "&nbsp;";
     	row.appendChild(tcell);
     	
-    	if(i % 7 === 0) {
+    	if(tcellsInRow % 7 === 0) {
         	tbody.appendChild(row);
         	row = d.createElement("tr");
         }
+        tcellsInRow++;
     }
     
     tbody.appendChild(row);    
