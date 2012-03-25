@@ -92,10 +92,12 @@ var tinycal = (function() {
         tcell.appendChild(link);
         row.appendChild(tcell);
         
-        if(tcellsInRow % 6 == 0) {
+        if(!currentOptions.sunStart && tcellsInRow % 6 == 0) {
+        	tcell.className += " weekend sat";
+        } else if(currentOptions.sunStart && tcellsInRow % 1 == 0) {
         	tcell.className += " weekend sat";
         }
-        
+                 
         if(tcellsInRow % 7 === 0) {
         	tcell.className += " weekend sun";
         	tbody.appendChild(row);
