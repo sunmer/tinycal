@@ -1,18 +1,7 @@
 var tinycal = (function() {
   
   var d = document;
-  var startDate = new Date();
-  
-  var options = {
-  	calendarID: 'tinycal',
-  	callback: false,
-  	container: document.body,
-  	month: startDate.getMonth(),
-  	year: startDate.getFullYear(),
-  	fullWeek: ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'],
-  	fullYear: ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'okt', 'nov', 'dec'],
-  	sunStart: false
-  }
+  var options, startDate;
   
   function toggleDate(year, month, currentOptions) {
     currentOptions.container.removeChild(d.getElementById(currentOptions.calendarID));
@@ -127,8 +116,8 @@ var tinycal = (function() {
         
         tcellsInRow++;
     }
-    
-    for(var i = daysInMonth; i <  43; i++) {
+	
+    for(var i = daysInMonth + dayOffset; i <  43; i++) {
     	tcell = d.createElement("td");
     	tcell.innerHTML = "&nbsp;";
     	row.appendChild(tcell);
@@ -149,6 +138,18 @@ var tinycal = (function() {
   }
   
   function init(opts) {
+  	startDate = new Date();
+  	options = {
+	  	calendarID: 'tinycal',
+	  	callback: false,
+	  	container: document.body,
+	  	month: startDate.getMonth(),
+	  	year: startDate.getFullYear(),
+	  	fullWeek: ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'],
+	  	fullYear: ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'okt', 'nov', 'dec'],
+	  	sunStart: false
+	}
+	
   	if(typeof opts !== 'undefined') {
   		
   		//JS months start with 0, human logic doesn't
@@ -165,10 +166,8 @@ var tinycal = (function() {
   		opts = options;
   	}
   	
-  	if(!opts.sunStart && !tinycal.isWeekStartModified) {
-		opts.fullWeek.push(opts.fullWeek[0]);
-		opts.fullWeek.shift();
-		tinycal.isWeekStartModified = true;
+  	if(opts.sunStart) {
+		opts.fullWeek.unshift(opts.fullWeek.pop());
 	}
 	
 	createTable(opts.year, opts.month, opts);
