@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset='utf-8'>
+  <title>tinycal.js demos</title>
+  <link rel="stylesheet" href="reset.css" type="text/css">
+  <link rel="stylesheet" href="charlieparker.css" type="text/css">
+  <link rel="stylesheet" href="blackwhite.css" type="text/css">
+  <link rel="stylesheet" href="air.css" type="text/css">
+  <link rel="stylesheet" href="darker.css" type="text/css">
+  <link rel="stylesheet" href="windmill.css" type="text/css">
+  <link rel="stylesheet" href="simple.css" type="text/css">
+  <style>
+   #container {width: 600px; margin: 0 auto; padding-top: 10px;}
+   h1 {font-size: 34px; font-family: 'Century Gothic', sans-serif; text-align: center; margin-bottom: 20px; }
+   h2 {font-size: 20px; font-family: 'Century Gothic', sans-serif; text-align: center; }
+   h2 a { text-decoration: none; margin-bottom: 10px; display: inline-block; }
+   div > table {margin: 0 auto; margin-bottom: 40px; }
+   p {font-family: 'Century Gothic', sans-serif; text-align: center; margin-bottom: 20px;}
+  </style>
+</head>
+<body>
+<div id="container">
+<h1>tinycal.js demos</h1>
+<p>View the source of the page to see what options each calendar is using</p>
+  <a href="https://github.com/sunmer/tinycal"><img style="position: absolute; top: 0; right: 0; border: 0;" src="http://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub" /></a>
+  <div id="charlieparker"><h2><a href="https://github.com/downloads/sunmer/tinycal/charlieparker.css">charlieparker.css</a></h2></div>
+  <div id="fresh" style=""><h2><a href="https://github.com/downloads/sunmer/tinycal/blackwhite.css">blackwhite.css</a></h2></div>
+  <div id="air" style=""><h2><a href="https://github.com/downloads/sunmer/tinycal/air.css">air.css</a></h2></div>
+  <div id="darker" style=""><h2><a href="https://github.com/downloads/sunmer/tinycal/darker.css">darker.css</a></h2></div>
+  <div id="windmill" style=""><a href="https://github.com/downloads/sunmer/tinycal/windmill.css"><h2>windmill.css</a></h2></div>
+  <div id="simple" style=""><h2><a href="https://github.com/downloads/sunmer/tinycal/simple.css">simple.css</a></h2></div>
+</div>
+</body>
+<script src="tinycal.js" type="text/javascript"></script>
+<script type="text/javascript">
+tinycal.init({ 
+	container: document.getElementById('charlieparker'), 
+	callback: function(date) { alert(date); },
+	calendarID: 'cal-charlieparker'
+});
+tinycal.init({ 
+	container: document.getElementById('fresh'), 
+	callback: function(date) { alert(date.getFullYear() + '/' + date.getMonth() + '/' + date.getDate()) },
+	fullWeek: ['m', 't', 'w', 't', 'f', 's', 's'],
+	calendarID: 'cal-fresh'
+});
+tinycal.init({ 
+	container: document.getElementById('air'),
+	callback: function(date) { alert(date); },
+	calendarID: 'cal-air',
+	fullWeek: ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'],
+	fullYear: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+});
+tinycal.init({ 
+	container: document.getElementById('darker'), 
+	callback: function(date) { alert(date); },
+	calendarID: 'cal-darker'
+});
+tinycal.init({ 
+	container: document.getElementById('windmill'), 
+	callback: function(date) { alert(date); },
+	calendarID: 'cal-windmill'
+});
+tinycal.init({ 
+	container: document.getElementById('simple'), 
+	callback: function(date) { alert(date); },
+	calendarID: 'cal-simple'
+});
+</script>
+</html>

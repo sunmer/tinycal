@@ -1,0 +1,24 @@
+#air .tinycal { font-family: 'Helvetica Neue', 'Helvetica', Arial, sans-serif; font-weight: lighter; }
+#air .tinycal a { text-decoration: none; cursor: pointer; }
+#air .tinycal th { padding: 4px; min-width: 30px; position: relative; }
+#air .tinycal th a.prev { float: left; }
+#air .tinycal th a.next { float: right; }
+#air .tinycal tr:first-child th { }
+#air .tinycal tr + tr th {
+	background-color: #313131;
+	color: #fff;
+	border: 1px solid #fff;
+	text-shadow: #000 0px 1px 1px;
+	font-weight: normal;}
+#air .tinycal td {
+	padding: 6px 0;
+	text-align: center;
+	border: 1px solid #fff;
+}
+#air .tinycal td > a { color: #333; text-shadow: #eee 0px 1px 2px; }
+#air .tinycal td.today { background-color: #333; }
+#air .tinycal td.today > a { color: #fff; text-shadow: none; font-weight: lighter; }
+#air .tinycal td.day { background-color: #8fc1ff; }
+#air .tinycal td.day > a {}
+#air .tinycal td.day:hover > a {}
+#air *+html .tinycal tr th a.next { float: none; position: absolute; right: 2%; top: 20%; }

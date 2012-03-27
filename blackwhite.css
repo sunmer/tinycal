@@ -1,0 +1,29 @@
+#fresh .tinycal { font-family: 'Helvetica Neue', 'Helvetica', Arial, sans-serif; font-weight: lighter; }
+#fresh .tinycal a { text-decoration: none; cursor: pointer; color: #fff; }
+#fresh .tinycal th { padding: 4px; min-width: 30px; position: relative; }
+#fresh .tinycal th a.prev { float: left; }
+#fresh .tinycal th a.next { float: right; }
+#fresh .tinycal tr:first-child th { background-color: #000; border-top: 1px solid #000; color: #fff; }
+#fresh .tinycal tr:first-child th > a { }
+#fresh .tinycal tr + tr th {}
+#fresh .tinycal td {
+	padding: 6px 0;
+	text-align: center;
+	border-left: 1px solid #ddd;
+	background-color: #000;
+}
+#fresh .tinycal td {
+	border: 1px solid #fff;
+}
+#fresh .tinycal td.day:hover {
+	background-color: #fff;
+}
+#fresh .tinycal td.day:hover a {
+	color: #000;
+}
+#fresh .tinycal td > a {}
+#fresh .tinycal td.day { }
+#fresh .tinycal td.day > a { color: #fff; }
+#fresh .tinycal td.today { }
+#fresh .tinycal td.today > a {color: #9ecb11;  }
+#fresh *+html .tinycal tr th a.next { float: none; position: absolute; right: 2%; top: 20%; }

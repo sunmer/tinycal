@@ -1,0 +1,25 @@
+#windmill .tinycal { font-family: 'Helvetica Neue', 'Helvetica', Arial, sans-serif; font-weight: lighter; 
+background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAsAAAALCAIAAAAmzuBxAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAEVJREFUeNp8z1EOADAEA9BxNPfmauZDYrZp/+Q1TZCqrh4ROU/GbGaMuW18uRoTZwNwhNwd8P3LyzHPmGtj4mwAjmwBBgCdESNJFaA8rAAAAABJRU5ErkJggg==);
+}
+#windmill .tinycal a { text-decoration: none; cursor: pointer; color: #000; }
+#windmill .tinycal th { padding: 4px; min-width: 30px; position: relative; background-color: #fff; }
+#windmill .tinycal th a { color: #cc0200; }
+#windmill .tinycal th a.prev { float: left; }
+#windmill .tinycal th a.next { float: right; }
+#windmill .tinycal tr:first-child th {}
+#windmill .tinycal tr + tr th {}
+#windmill .tinycal td {
+	padding: 6px;
+	text-align: center;
+	background-color: #fff;
+}
+#windmill .tinycal td > a { color: #fff; }
+#windmill .tinycal td.day,
+#windmill .tinycal td.today {
+	background-color: rgba(204, 2, 0, 0.8);
+	border: 1px solid #fff;
+}
+#windmill .tinycal td.day > a {}
+#windmill .tinycal td.today { background-color: rgba(255, 255, 255, 1); }
+#windmill .tinycal td.today > a { color: #000; }
+#windmill *+html .tinycal tr th a.next { float: none; position: absolute; right: 2%; top: 20%; }

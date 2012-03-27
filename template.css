@@ -1,0 +1,17 @@
+.tinycal { font-family: 'Helvetica Neue', 'Helvetica', Arial, sans-serif; font-weight: lighter; }
+.tinycal a { text-decoration: none; cursor: pointer; color: #000; }
+.tinycal th { padding: 4px; min-width: 30px; position: relative; }
+.tinycal th a.prev { float: left; }
+.tinycal th a.next { float: right; }
+.tinycal tr:first-child th {}
+.tinycal tr + tr th {}
+.tinycal td {
+	padding: 6px 0;
+	text-align: center;
+}
+.tinycal td > a {}
+.tinycal td.day {}
+.tinycal td.day > a {}
+.tinycal td.today {}
+.tinycal td.today > a {}
+*+html .tinycal tr th a.next { float: none; position: absolute; right: 2%; top: 20%; }

@@ -1,0 +1,31 @@
+#charlieparker .tinycal { font-family: 'Helvetica Neue', 'Helvetica', Arial, sans-serif; }
+#charlieparker .tinycal a { text-decoration: none; cursor: pointer; }
+#charlieparker .tinycal th { 
+	position: relative; 
+	padding: 4px;
+	color: #333;
+	font-weight: normal;
+	min-width: 30px;
+}
+#charlieparker .tinycal th a.prev { float: left; }
+#charlieparker .tinycal th a.next { float: right; }
+#charlieparker .tinycal tr:first-child th {}
+#charlieparker .tinycal tr + tr th {
+	background-color: #313131;
+	color: #fff;
+	border-right: 1px solid #fff;
+	text-shadow: #000 0px 1px 1px;
+	font-weight: normal;
+	border-top: 1px solid #000;
+	border-bottom: 1px solid #000;
+}
+#charlieparker .tinycal td {
+	padding: 6px 0;
+	text-align: center;
+	border: 1px solid #fff;
+}
+#charlieparker .tinycal td > a { color: #333; text-shadow: #eee 0px 1px 2px; }
+#charlieparker .tinycal td.today { }
+#charlieparker .tinycal td.today > a { }
+#charlieparker .tinycal td.day { background-color: #ddd; }
+#charlieparker *+html .tinycal tr th a.next { float: none; position: absolute; right: 2%; top: 20%; }
