@@ -51,7 +51,7 @@ var tinycal = (function() {
     tcell.appendChild(link);
     
     var heading = d.createElement("span");
-    heading.appendChild(d.createTextNode(options.fullYear[now.getMonth()] + " " + now.getFullYear()));
+    heading.appendChild(d.createTextNode(currentOptions.fullYear[now.getMonth()] + " " + now.getFullYear()));
     tcell.appendChild(heading);
     
     link = d.createElement("a");
