@@ -85,7 +85,7 @@
       <span class="small">by <a href="https://github.com/sunmer">sunmer</a></span></h1>
 
     <div class="description">
-      lightweight javascript date picker / <a href="demo.html">see the demo gallery</a>
+      lightweight javascript date picker <a href="demo.html">demo gallery</a>
     </div>
       <p>tinycal.js is a date picker which is easy to use yet
 highly flexible. Weighing in under 3kb minified and requiring no
@@ -103,7 +103,7 @@ tinycal.init({
 });
 </pre>
     <h2>Options</h2>
-    <p>By using the options you can rename weeks (fullWeek) and months (fullMonth), use multiple date pickers on a single page by using unique id's for each calendar (calendarID), and also format the output date the way you want via the callback option which returns the picked date.</p>
+    <p>By using the options you can rename month names and day names, use multiple date pickers on a single page by using unique id's for each calendar, and also format the output date the way you want via the callback option which a Date object for the picked date.</p>
     <pre style="line-height: 1.5; font-size: 16px; background-color: #fff; color: #000; padding: 0; overflow-x: scroll;">var options = {
   <strong>calendarID:</strong> the id attribute for the date picker table which is generated. Default: 'tinycal',
   <strong>callback:</strong> callback method when a date has been clicked. Default: null,
