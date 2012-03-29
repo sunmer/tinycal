@@ -25,10 +25,10 @@ var tinycal = (function() {
   
   function toggleDate(year, month, currentOptions) {
     currentOptions.container.removeChild(d.getElementById(currentOptions.calendarID));
-	createTable(year, month, currentOptions);
+	createCalendar(year, month, currentOptions);
   }
   
-  function createTable(year, month, currentOptions) {
+  function createCalendar(year, month, currentOptions) {
   	var now = new Date(year, month, 1);
 
   	var firstOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
@@ -192,7 +192,7 @@ var tinycal = (function() {
 		opts.fullWeek.unshift(opts.fullWeek.pop());
 	}
 	
-	createTable(opts.year, opts.month, opts);
+	createCalendar(opts.year, opts.month, opts);
   }
   
   return {
